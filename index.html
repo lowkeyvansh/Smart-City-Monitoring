@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart City Monitoring</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f4f4f4; }
+        h1 { text-align: center; }
+        .container { margin-top: 20px; }
+        .sensor-data { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Smart City Monitoring Dashboard</h1>
+    <div class="container">
+        <div class="sensor-data">
+            <h2>Latest Traffic Data</h2>
+            <div id="traffic"></div>
+        </div>
+        <div class="sensor-data">
+            <h2>Latest Air Quality Data</h2>
+            <div id="air_quality"></div>
+        </div>
+        <div class="sensor-data">
+            <h2>Latest Weather Data</h2>
+            <div id="weather"></div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchData(sensorType, elementId) {
+            const response = await fetch(`/data/latest/${sensorType}`);
+            const data = await response.json();
+            document.getElementById(elementId).textContent = JSON.stringify(data);
+        }
+
+        fetchData('traffic', 'traffic');
+        fetchData('air_quality', 'air_quality');
+        fetchData('weather', 'weather');
+    </script>
+</body>
+</html>
